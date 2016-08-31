@@ -1,0 +1,5 @@
+name: Ghoul Hunt
+version: 1.0
+main: fr.zomdev.gh.Main
+author: ZomDev
+commands:
