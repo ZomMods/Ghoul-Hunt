@@ -12,34 +12,49 @@ import java.io.IOException;
  */
 public class ConfigUtil {
 
-    public static String path = Main.getInstance().getDataFolder().getPath();
+    private static String path = Main.getInstance().getDataFolder().getPath();
 
-    public static File locations = new File(path, "locations.yml");
-    public static FileConfiguration locConfig = YamlConfiguration.loadConfiguration(locations);
+    private static File locations = new File(path, "locations.yml");
+    private static FileConfiguration locConfig = YamlConfiguration.loadConfiguration(locations);
 
     public static void setupConfigs(){
+
         setDefaults();
+
         copyDefaults();
+
         saveConfigs();
+
     }
 
     private static void saveConfig(FileConfiguration config, File configFile) {
+
         try {
+
             config.save(configFile);
+
         } catch (IOException e) {
+
             e.printStackTrace();
+
         }
     }
 
     private static void saveConfigs(){
+
         saveConfig(locConfig, locations);
+
     }
 
     private static void setDefaults(){
+
         locConfig.setDefaults(YamlConfiguration.loadConfiguration(Main.getInstance().getResource("locations.yml")));
+
     }
 
     private static void copyDefaults(){
+
         locConfig.options().copyDefaults(true);
+
     }
 }
