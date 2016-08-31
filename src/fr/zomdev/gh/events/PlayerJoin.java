@@ -19,7 +19,7 @@ public class PlayerJoin implements Listener {
 
     public void onJoin(PlayerJoinEvent e){
         Player p = e.getPlayer();
-        if(pList.size() < config.getInt("MaxPlayers") / 2 ) {
+        if(pList.size() < config.getInt("MaxPlayers")) {
             e.setJoinMessage(prefix + p.getName() + " has joined the game !");
             pList.add(p.getUniqueId());
             if(pList.size() >= config.getInt("MaxPlayers") / 2){

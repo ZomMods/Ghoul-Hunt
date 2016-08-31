@@ -5,7 +5,6 @@ import fr.zomdev.gh.events.PlayerQuit;
 import fr.zomdev.gh.utils.GameState;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
