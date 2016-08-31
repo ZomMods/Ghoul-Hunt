@@ -29,8 +29,6 @@ public class Main extends JavaPlugin {
 
     public static ArrayList<UUID> pList = new ArrayList<>();
 
-    public static FileConfiguration config = getInstance().getConfig();
-
     @Override
     public void onEnable() {
         instance = this;
