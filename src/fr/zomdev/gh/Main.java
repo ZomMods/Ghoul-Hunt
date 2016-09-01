@@ -22,6 +22,12 @@ import static fr.zomdev.gh.utils.ConfigUtil.setupConfigs;
  */
 public class Main extends JavaPlugin {
 
+    //TODO Systeme de quinques
+    //TODO Systeme de victoire pour les joueurs
+    //TODO Les Kits
+    //TODO Les Details(Sons,Particules...)
+
+
     // On instancie l'instance du plugin
     private static Main instance;
 
@@ -113,10 +119,13 @@ public class Main extends JavaPlugin {
         // Quand le joueur se connecte au serveur
         pm.registerEvents(new PlayerLogin(), this);
 
+        // L'évènement du système de joueur dévoré
         pm.registerEvents(new GhoulDevourPlayer(), this);
 
+        // Qaund le joueur casse un block
         pm.registerEvents(new PlayerBreak(), this);
 
+        // Quand le joueur bouge
         pm.registerEvents(new PlayerMove(), this);
     }
 

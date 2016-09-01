@@ -5,6 +5,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 
+import static fr.zomdev.gh.Main.devoured;
 import static fr.zomdev.gh.Main.frozen;
 
 /**
@@ -15,7 +16,7 @@ public class PlayerMove implements Listener{
     @EventHandler
     public void onMove(PlayerMoveEvent e){
         Player p = e.getPlayer();
-        if(frozen.contains(p.getUniqueId())){
+        if(frozen.contains(p.getUniqueId()) || devoured.contains(p.getUniqueId())){
             e.setCancelled(true);
         }
     }
