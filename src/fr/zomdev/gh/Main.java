@@ -42,6 +42,8 @@ public class Main extends JavaPlugin {
 
     private ArrayList<String> ghAliases = new ArrayList<>();
 
+    private String[] args = {"setlobby", "setghoulspawn", "setplayerspawn"};
+
     @Override
     public void onEnable() {
 
@@ -61,8 +63,14 @@ public class Main extends JavaPlugin {
         // On Enregistre les Evènements
         registerEvents();
 
+        // On enregistre les alias pour la commande
+        registerAliases();
+
         // On Enregistre les Commandes
+        getCommand("ghoulhunt").setExecutor(new ghCommand());
         getCommand("ghoulhunt").setAliases(ghAliases);
+        getCommand("ghoulhunt").tabComplete(null, args);
+
     }
 
     @Override
