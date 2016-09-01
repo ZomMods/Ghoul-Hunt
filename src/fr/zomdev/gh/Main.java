@@ -1,5 +1,6 @@
 package fr.zomdev.gh;
 
+import fr.zomdev.gh.cmds.ghCommand;
 import fr.zomdev.gh.events.PlayerJoin;
 import fr.zomdev.gh.events.PlayerLogin;
 import fr.zomdev.gh.events.PlayerQuit;
@@ -39,8 +40,11 @@ public class Main extends JavaPlugin {
     // La liste des joueurs entrain de se faire dévorer
     public static ArrayList<UUID> devoured = new ArrayList<>();
 
+    private ArrayList<String> ghAliases = new ArrayList<>();
+
     @Override
     public void onEnable() {
+
         // On définit l'instance comme this
         instance = this;
 
@@ -56,6 +60,9 @@ public class Main extends JavaPlugin {
 
         // On Enregistre les Evènements
         registerEvents();
+
+        // On Enregistre les Commandes
+        getCommand("ghoulhunt").setAliases(ghAliases);
     }
 
     @Override
@@ -79,5 +86,8 @@ public class Main extends JavaPlugin {
         pm.registerEvents(new PlayerLogin(), this);
     }
 
+    private void registerAliases(){
+        ghAliases.add("gh");
+    }
 
 }
