@@ -39,7 +39,7 @@ public class GhoulDevourPlayer implements Listener {
     }
 
     private static void freeze(Player ghoul, Player target){
-        frozen.add(target.getUniqueId());
+        devoured.add(target.getUniqueId());
         frozen.add(ghoul.getUniqueId());
     }
 
@@ -57,22 +57,37 @@ public class GhoulDevourPlayer implements Listener {
 
                 if (timer > 0) {
                     target.setLevel(timer);
+
                     Bukkit.getPlayer(ghouls.get(0)).setLevel(timer);
+
                 }
 
 
 
                 if (timer == 0) {
                     target.setLevel(timer);
+
                     target.setGameMode(GameMode.SPECTATOR);
+
                     target.sendMessage(BOLD + "" + RED + "YOU'RE DEAD!");
+
+                    devoured.clear();
+
                     deads.add(target.getUniqueId());
+
                     frozen.clear();
+
                     if(pList.size() == 0 ){
+
                         Bukkit.broadcastMessage(prefix + RED + Bukkit.getPlayer(ghouls.get(0)).getName() + " the ghoul has win the game!");
+
                         Bukkit.broadcastMessage(prefix + RED + "The Server if going to restart");
+
                         GameState.setState(GameState.FINISH);
+
                         launchFinish();
+
+                        Bukkit.getScheduler().cancelTask(task);
                     }
                 }
             }

@@ -96,6 +96,7 @@ public class Main extends JavaPlugin {
         pList.clear();
         ghouls.clear();
         devoured.clear();
+        deads.clear();
     }
 
     private void registerEvents() {
