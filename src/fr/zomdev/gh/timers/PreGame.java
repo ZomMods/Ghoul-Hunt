@@ -2,12 +2,13 @@ package fr.zomdev.gh.timers;
 
 import fr.zomdev.gh.Main;
 import fr.zomdev.gh.utils.GameState;
+import fr.zomdev.gh.utils.Locations;
 import org.bukkit.Bukkit;
 
+import java.util.Random;
 import java.util.UUID;
 
-import static fr.zomdev.gh.Main.pList;
-import static fr.zomdev.gh.Main.prefix;
+import static fr.zomdev.gh.Main.*;
 import static org.bukkit.ChatColor.*;
 
 /**
@@ -53,6 +54,8 @@ public class PreGame {
 
                         GameState.setState(GameState.GAME);
 
+                        checkGhoul();
+
                         Bukkit.getScheduler().cancelTask(task);
 
                     }
@@ -60,5 +63,26 @@ public class PreGame {
             }
 
         }, 0, 20);
+    }
+
+
+    private static void checkGhoul(){
+        if(ghouls.size() == 0){
+            int r = new Random().nextInt(pList.size());
+
+            UUID ghoul = pList.get(r);
+
+            pList.remove(ghoul);
+
+            ghouls.add(ghoul);
+
+            Bukkit.getPlayer(ghoul).sendMessage(prefix + RED + "You're the ghoul! You must devour the humans!");
+            Bukkit.getPlayer(ghoul).teleport(Locations.GHOUL_SPAWN);
+
+            for (UUID id : pList){
+                Bukkit.getPlayer(id).sendMessage(prefix + RED + Bukkit.getPlayer(ghoul).getName() + " is now the ghoul!");
+                Bukkit.getPlayer(id).teleport(Locations.PLAYER_SPAWN);
+            }
+        }
     }
 }

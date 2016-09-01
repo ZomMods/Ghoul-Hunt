@@ -22,11 +22,16 @@ public class GhoulDevourPlayer implements Listener {
 
     @EventHandler
     public void onDevour(PlayerInteractEntityEvent e) {
+
         Player p = e.getPlayer();
         Entity ent = e.getRightClicked();
+
         if (ent instanceof Player) {
+
             Player target = (Player) ent;
+
             if (pList.contains(target.getUniqueId()) && target.getGameMode() == GameMode.SURVIVAL && ghouls.contains(p.getUniqueId())) {
+
                 getDevoured(target);
             }
         }
@@ -36,13 +41,14 @@ public class GhoulDevourPlayer implements Listener {
     public static int timer = 15;
 
     public static void getDevoured(Player target) {
-
-
-
         task = Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.getInstance(), new Runnable() {
 
             @Override
             public void run() {
+                if (timer > 0) {
+                    target.setLevel(timer);
+                    Bukkit.getPlayer(ghouls.get(0)).setLevel(timer);
+                }
 
                 timer--;
 
