@@ -8,7 +8,7 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * Created by Thomas on 31/08/2016.
+ * Created by ZomDev on 31/08/2016.
  */
 public class ConfigUtil {
 
@@ -56,5 +56,9 @@ public class ConfigUtil {
 
         locConfig.options().copyDefaults(true);
 
+    }
+
+    public static FileConfiguration getLocConfig() {
+        return locConfig;
     }
 }

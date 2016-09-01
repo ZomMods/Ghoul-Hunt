@@ -11,7 +11,7 @@ import static fr.zomdev.gh.Main.prefix;
 import static org.bukkit.ChatColor.*;
 
 /**
- * Created by Thomas on 31/08/2016.
+ * Created by ZomDev on 31/08/2016.
  */
 public class PreGame {
 

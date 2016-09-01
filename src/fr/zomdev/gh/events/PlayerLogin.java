@@ -3,7 +3,6 @@ package fr.zomdev.gh.events;
 import fr.zomdev.gh.Main;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
@@ -11,7 +10,7 @@ import org.bukkit.event.player.PlayerLoginEvent;
 import static fr.zomdev.gh.Main.pList;
 
 /**
- * Created by Thomas on 31/08/2016.
+ * Created by ZomDev on 31/08/2016.
  */
 public class PlayerLogin implements Listener{
 

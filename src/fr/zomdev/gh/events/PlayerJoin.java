@@ -1,6 +1,7 @@
 package fr.zomdev.gh.events;
 
 import fr.zomdev.gh.Main;
+import fr.zomdev.gh.utils.ConfigUtil;
 import fr.zomdev.gh.utils.GameState;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -11,13 +12,16 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import static fr.zomdev.gh.Main.pList;
 import static fr.zomdev.gh.Main.prefix;
 import static fr.zomdev.gh.timers.PreGame.launchPreGameTimer;
+import static fr.zomdev.gh.utils.Locations.LOBBY;
 
 /**
- * Created by Thomas on 30/08/2016.
+ * Created by ZomDev on 30/08/2016.
  */
 public class PlayerJoin implements Listener {
 
     private static FileConfiguration config = Main.getInstance().getConfig();
+
+    private static FileConfiguration locs = ConfigUtil.getLocConfig();
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
@@ -31,6 +35,14 @@ public class PlayerJoin implements Listener {
                 e.setJoinMessage(prefix + p.getName() + " has joined the game !");
 
                 pList.add(p.getUniqueId());
+
+                try {
+
+                    p.teleport(LOBBY);
+
+                }catch(NullPointerException ex){
+                    ex.printStackTrace();
+                }
 
                 if (pList.size() >= config.getInt("MaxPlayers") / 2) {
 

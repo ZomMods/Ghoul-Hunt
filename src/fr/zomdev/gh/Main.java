@@ -15,7 +15,7 @@ import java.util.UUID;
 import static fr.zomdev.gh.utils.ConfigUtil.setupConfigs;
 
 /**
- * Created by Thomas on 30/08/2016.
+ * Created by ZomDev on 30/08/2016.
  */
 public class Main extends JavaPlugin {
 

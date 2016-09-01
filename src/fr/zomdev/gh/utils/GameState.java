@@ -1,8 +1,5 @@
 package fr.zomdev.gh.utils;
 
-/**
- * Created by Thomas on 30/08/2016.
- */
 public enum GameState {
 
     LOBBY,
@@ -10,6 +7,9 @@ public enum GameState {
     GAME,
     FINISH;
 
+    /**
+     * Created by ZomDev on 30/08/2016.
+     */
     public static GameState state;
 
     public static GameState getState() {

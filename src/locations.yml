@@ -1,0 +1,21 @@
+Lobby:
+ WorldName:
+ X:
+ Y:
+ Z:
+ Yaw:
+ Pitch:
+GhoulSpawn:
+ WorldName:
+  X:
+  Y:
+  Z:
+  Yaw:
+  Pitch:
+PlayerSpawn:
+ WorldName:
+  X:
+  Y:
+  Z:
+  Yaw:
+  Pitch:

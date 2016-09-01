@@ -19,7 +19,7 @@ import static fr.zomdev.gh.timers.PreGame.timer;
 import static org.bukkit.ChatColor.RED;
 
 /**
- * Created by Thomas on 30/08/2016.
+ * Created by ZomDev on 30/08/2016.
  */
 public class PlayerQuit implements Listener {
 
