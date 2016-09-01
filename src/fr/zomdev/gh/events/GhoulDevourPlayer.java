@@ -1,6 +1,7 @@
 package fr.zomdev.gh.events;
 
 import fr.zomdev.gh.Main;
+import fr.zomdev.gh.utils.GameState;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Entity;
@@ -9,8 +10,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 
-import static fr.zomdev.gh.Main.ghouls;
-import static fr.zomdev.gh.Main.pList;
+import static fr.zomdev.gh.Main.*;
+import static fr.zomdev.gh.timers.Finish.launchFinish;
 import static org.bukkit.ChatColor.BOLD;
 import static org.bukkit.ChatColor.RED;
 
@@ -37,28 +38,47 @@ public class GhoulDevourPlayer implements Listener {
         }
     }
 
+    private static void freeze(Player ghoul, Player target){
+        frozen.add(target.getUniqueId());
+        frozen.add(ghoul.getUniqueId());
+    }
+
     public static int task;
     public static int timer = 15;
 
     public static void getDevoured(Player target) {
+        freeze(Bukkit.getPlayer(ghouls.get(0)), target);
+
         task = Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.getInstance(), new Runnable() {
 
             @Override
             public void run() {
+                timer--;
+
                 if (timer > 0) {
                     target.setLevel(timer);
                     Bukkit.getPlayer(ghouls.get(0)).setLevel(timer);
                 }
 
-                timer--;
+
 
                 if (timer == 0) {
+                    target.setLevel(timer);
                     target.setGameMode(GameMode.SPECTATOR);
                     target.sendMessage(BOLD + "" + RED + "YOU'RE DEAD!");
-
+                    deads.add(target.getUniqueId());
+                    frozen.clear();
+                    if(pList.size() == 0 ){
+                        Bukkit.broadcastMessage(prefix + RED + Bukkit.getPlayer(ghouls.get(0)).getName() + " the ghoul has win the game!");
+                        Bukkit.broadcastMessage(prefix + RED + "The Server if going to restart");
+                        GameState.setState(GameState.FINISH);
+                        launchFinish();
+                    }
                 }
             }
 
         }, 0, 20);
     }
+
+
 }

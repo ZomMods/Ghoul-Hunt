@@ -4,6 +4,7 @@ import fr.zomdev.gh.Main;
 import fr.zomdev.gh.utils.GameState;
 import fr.zomdev.gh.utils.Locations;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 
 import java.util.Random;
 import java.util.UUID;
@@ -52,9 +53,13 @@ public class PreGame {
 
                         Bukkit.getPlayer(id).sendMessage(prefix + BOLD + RED + "Game Starts !");
 
+                        Bukkit.getPlayer(id).setGameMode(GameMode.SURVIVAL);
+
                         GameState.setState(GameState.GAME);
 
                         checkGhoul();
+
+                        Bukkit.getPlayer(ghouls.get(0)).setGameMode(GameMode.SURVIVAL);
 
                         Bukkit.getScheduler().cancelTask(task);
 

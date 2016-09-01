@@ -1,7 +1,10 @@
 package fr.zomdev.gh.cmds;
 
 import fr.zomdev.gh.Main;
+import fr.zomdev.gh.timers.PreGame;
 import fr.zomdev.gh.utils.ConfigUtil;
+import fr.zomdev.gh.utils.GameState;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -10,7 +13,12 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.Permission;
 
+import java.util.UUID;
+
+import static fr.zomdev.gh.Main.pList;
 import static fr.zomdev.gh.Main.prefix;
+import static fr.zomdev.gh.events.PlayerJoin.config;
+import static fr.zomdev.gh.timers.PreGame.timer;
 import static fr.zomdev.gh.utils.ConfigUtil.saveConfigs;
 import static org.bukkit.ChatColor.RED;
 
@@ -33,11 +41,13 @@ public class ghCommand implements CommandExecutor {
 
         } else {
 
-            if (p.hasPermission(new Permission("ghoulhunt.setLocations"))) {
-                if (args.length == 0) {
-                    p.sendMessage(prefix + RED + "You must use an argument!");
 
-                } else if (args.length == 1) {
+            if (args.length == 0) {
+                p.sendMessage(prefix + RED + "You must use an argument!");
+
+            } else if (args.length == 1) {
+
+                if (p.hasPermission(new Permission("ghoulhunt.setLocations"))) {
 
                     if (args[0].equalsIgnoreCase("setlobby")) {
                         setLocation("Lobby", p.getLocation());
@@ -58,6 +68,35 @@ public class ghCommand implements CommandExecutor {
                         p.sendMessage(prefix + "You've set the playerspawn's location");
 
                     }
+                } else if (p.hasPermission("gh.quit.use")) {
+
+                    if (args[0].equalsIgnoreCase("quit")) {
+                        if (pList.contains(p.getUniqueId())) {
+                            pList.remove(p.getUniqueId());
+
+                            if (pList.size() < config.getInt("MaxPlayers") / 2 && GameState.isState(GameState.PREGAME)) {
+
+                                Bukkit.getScheduler().cancelTask(PreGame.task);
+
+                                timer = 30;
+
+                                for (UUID id : pList) {
+
+                                    Bukkit.getPlayer(id).sendMessage(prefix + RED + "There are not enough players to start the game !");
+
+                                }
+
+                                GameState.setState(GameState.LOBBY);
+
+                            }
+
+                        } else {
+
+                        }
+                    }
+
+                } else {
+                    p.sendMessage(prefix + RED + "You don't have the right permission !");
                 }
             }
         }

@@ -1,6 +1,7 @@
 package fr.zomdev.gh.events;
 
 import fr.zomdev.gh.Main;
+import fr.zomdev.gh.utils.GameState;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -21,6 +22,8 @@ public class PlayerLogin implements Listener{
         Player p = e.getPlayer();
         if(pList.size() >= config.getInt("MaxPlayers")){
             e.disallow(PlayerLoginEvent.Result.KICK_OTHER, "§cGame is full !");
+        }else if (GameState.isState(GameState.FINISH)){
+            e.disallow(PlayerLoginEvent.Result.KICK_OTHER, "§cServer is restarting");
         }else{
             e.allow();
         }

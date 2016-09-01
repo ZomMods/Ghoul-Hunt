@@ -1,9 +1,7 @@
 package fr.zomdev.gh;
 
 import fr.zomdev.gh.cmds.ghCommand;
-import fr.zomdev.gh.events.PlayerJoin;
-import fr.zomdev.gh.events.PlayerLogin;
-import fr.zomdev.gh.events.PlayerQuit;
+import fr.zomdev.gh.events.*;
 import fr.zomdev.gh.utils.GameState;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -44,6 +42,10 @@ public class Main extends JavaPlugin {
     // La liste des joueurs entrain de se faire dévorer
     public static ArrayList<UUID> devoured = new ArrayList<>();
 
+    public static ArrayList<UUID> frozen = new ArrayList<>();
+
+    public static ArrayList<UUID> deads = new ArrayList<>();
+
     private ArrayList<String> ghAliases = new ArrayList<>();
 
     private ArrayList<String> args = new ArrayList<>();
@@ -73,7 +75,11 @@ public class Main extends JavaPlugin {
 
         // On Enregistre les Commandes
         getCommand("ghoulhunt").setExecutor(new ghCommand());
+
         getCommand("ghoulhunt").setAliases(ghAliases);
+
+        getCommand("ghoulhunt").setPermission("ghoulhunt.setLocations");
+
         getCommand("ghoulhunt").setTabCompleter(new TabCompleter() {
 
             @Override
@@ -82,7 +88,6 @@ public class Main extends JavaPlugin {
             }
 
         });
-
     }
 
     @Override
@@ -106,6 +111,12 @@ public class Main extends JavaPlugin {
 
         // Quand le joueur se connecte au serveur
         pm.registerEvents(new PlayerLogin(), this);
+
+        pm.registerEvents(new GhoulDevourPlayer(), this);
+
+        pm.registerEvents(new PlayerBreak(), this);
+
+        pm.registerEvents(new PlayerMove(), this);
     }
 
     private void registerAliases(){

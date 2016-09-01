@@ -4,6 +4,8 @@ import fr.zomdev.gh.Main;
 import fr.zomdev.gh.utils.ConfigUtil;
 import fr.zomdev.gh.utils.GameState;
 import fr.zomdev.gh.utils.Locations;
+import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -19,7 +21,7 @@ import static fr.zomdev.gh.timers.PreGame.launchPreGameTimer;
  */
 public class PlayerJoin implements Listener {
 
-    private static FileConfiguration config = Main.getInstance().getConfig();
+    public static FileConfiguration config = Main.getInstance().getConfig();
 
     private static FileConfiguration locs = ConfigUtil.getLocConfig();
 
@@ -35,6 +37,13 @@ public class PlayerJoin implements Listener {
                 e.setJoinMessage(prefix + p.getName() + " has joined the game !");
 
                 pList.add(p.getUniqueId());
+
+                p.setInvulnerable(true);
+                p.setHealth(p.getMaxHealth());
+                p.setFoodLevel(20);
+                p.setSaturation(1000.0f);
+                p.setLevel(0);
+                p.setGameMode(GameMode.SURVIVAL);
 
                 try {
 
