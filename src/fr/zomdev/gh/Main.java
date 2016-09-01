@@ -33,6 +33,12 @@ public class Main extends JavaPlugin {
     // La liste des joueurs qui ont rejoints le jeu
     public static ArrayList<UUID> pList = new ArrayList<>();
 
+    // La liste des ghoules
+    public static ArrayList<UUID> ghouls = new ArrayList<>();
+
+    // La liste des joueurs entrain de se faire dévorer
+    public static ArrayList<UUID> devoured = new ArrayList<>();
+
     @Override
     public void onEnable() {
         // On définit l'instance comme this
