@@ -42,16 +42,19 @@ public class ghCommand implements CommandExecutor {
                     if (args[0].equalsIgnoreCase("setlobby")) {
                         setLocation("Lobby", p.getLocation());
                         saveConfigs();
+
                         p.sendMessage(prefix + "You've set the lobby's location");
 
                     } else if (args[0].equalsIgnoreCase("setghoulspawn")) {
                         setLocation("GhoulSpawn", p.getLocation());
                         saveConfigs();
+
                         p.sendMessage(prefix + "You've set the ghoulspawn's location");
 
                     } else if (args[0].equalsIgnoreCase("setplayerspawn")) {
                         setLocation("PlayerSpawn", p.getLocation());
                         saveConfigs();
+
                         p.sendMessage(prefix + "You've set the playerspawn's location");
 
                     }
@@ -63,10 +66,16 @@ public class ghCommand implements CommandExecutor {
 
     private static void setLocation(String path, Location loc) {
         locs.set(path + ".WorldName", loc.getWorld().getName());
+
         locs.set(path + ".X", loc.getX());
+
         locs.set(path + ".Y", loc.getY());
+
         locs.set(path + ".Z", loc.getZ());
+
         locs.set(path + ".Yaw", loc.getYaw());
+
         locs.set(path + ".Pitch", loc.getPitch());
+
     }
 }
