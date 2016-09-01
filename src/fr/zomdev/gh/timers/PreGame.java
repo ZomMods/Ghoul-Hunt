@@ -26,9 +26,9 @@ public class PreGame {
             @Override
             public void run() {
 
-                if(timer == 30){
+                if (timer == 30) {
 
-                    for (UUID id : pList){
+                    for (UUID id : pList) {
 
                         Bukkit.getPlayer(id).sendMessage(prefix + YELLOW + "Game is about to start !");
 
@@ -66,8 +66,8 @@ public class PreGame {
     }
 
 
-    private static void checkGhoul(){
-        if(ghouls.size() == 0){
+    private static void checkGhoul() {
+        if (ghouls.size() == 0) {
             int r = new Random().nextInt(pList.size());
 
             UUID ghoul = pList.get(r);
@@ -77,11 +77,30 @@ public class PreGame {
             ghouls.add(ghoul);
 
             Bukkit.getPlayer(ghoul).sendMessage(prefix + RED + "You're the ghoul! You must devour the humans!");
-            Bukkit.getPlayer(ghoul).teleport(Locations.GHOUL_SPAWN);
 
-            for (UUID id : pList){
+            try {
+
+                Bukkit.getPlayer(ghoul).teleport(Locations.getGhoulSpawn());
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+
+            }
+
+
+            for (UUID id : pList) {
+
                 Bukkit.getPlayer(id).sendMessage(prefix + RED + Bukkit.getPlayer(ghoul).getName() + " is now the ghoul!");
-                Bukkit.getPlayer(id).teleport(Locations.PLAYER_SPAWN);
+
+                try {
+
+                    Bukkit.getPlayer(id).teleport(Locations.getPlayerSpawn());
+
+                } catch (NullPointerException ex) {
+                    ex.printStackTrace();
+
+                }
+
             }
         }
     }

@@ -40,7 +40,7 @@ public class ConfigUtil {
         }
     }
 
-    private static void saveConfigs(){
+    public static void saveConfigs(){
 
         saveConfig(locConfig, locations);
 
