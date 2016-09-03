@@ -30,6 +30,8 @@ public class PlayerJoin implements Listener {
         Player p = e.getPlayer();
         e.setJoinMessage(null);
 
+        p.getInventory().clear();
+
         if (GameState.isState(GameState.LOBBY)) {
 
             if (pList.size() < config.getInt("MaxPlayers")) {

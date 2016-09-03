@@ -1,10 +1,11 @@
 package fr.zomdev.gh.timers;
 
 import fr.zomdev.gh.Main;
+import fr.zomdev.gh.kits.GhoulKit;
 import fr.zomdev.gh.utils.GameState;
 import fr.zomdev.gh.utils.Locations;
-import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
+import org.bukkit.*;
+import org.bukkit.entity.Player;
 
 import java.util.Random;
 import java.util.UUID;
@@ -53,6 +54,10 @@ public class PreGame {
 
                         Bukkit.getPlayer(id).sendMessage(prefix + BOLD + RED + "Game Starts !");
 
+                        for(Player p : Bukkit.getOnlinePlayers()){
+                            p.getInventory().clear();
+                        }
+
                         Bukkit.getPlayer(id).setGameMode(GameMode.SURVIVAL);
 
                         GameState.setState(GameState.GAME);
@@ -77,15 +82,24 @@ public class PreGame {
 
             UUID ghoul = pList.get(r);
 
+            Player g = Bukkit.getPlayer(ghoul);
+
             pList.remove(ghoul);
 
             ghouls.add(ghoul);
 
-            Bukkit.getPlayer(ghoul).sendMessage(prefix + RED + "You're the ghoul! You must devour the humans!");
+            g.sendMessage(prefix + RED + BOLD + "You're the ghoul! You must devour the humans!");
+
+            g.getInventory().setHelmet(GhoulKit.ghoulKit[0]);
+            g.getInventory().setChestplate(GhoulKit.ghoulKit[1]);
+            g.getInventory().setLeggings(GhoulKit.ghoulKit[2]);
+            g.getInventory().setBoots(GhoulKit.ghoulKit[3]);
 
             try {
 
-                Bukkit.getPlayer(ghoul).teleport(Locations.getGhoulSpawn());
+                g.teleport(Locations.getGhoulSpawn());
+                Bukkit.getWorld(g.getWorld().getName()).playEffect(g.getLocation(), Effect.STEP_SOUND, Material.OBSIDIAN);
+                Bukkit.getWorld(g.getWorld().getName()).playSound(g.getLocation(), Sound.ENTITY_ARROW_HIT_PLAYER, 1, 1);
 
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -95,7 +109,7 @@ public class PreGame {
 
             for (UUID id : pList) {
 
-                Bukkit.getPlayer(id).sendMessage(prefix + RED + Bukkit.getPlayer(ghoul).getName() + " is now the ghoul!");
+                Bukkit.getPlayer(id).sendMessage(prefix + RED + g.getName() + " is now the ghoul!");
 
                 try {
 

@@ -2,6 +2,7 @@ package fr.zomdev.gh;
 
 import fr.zomdev.gh.cmds.ghCommand;
 import fr.zomdev.gh.events.*;
+import fr.zomdev.gh.kits.GhoulKit;
 import fr.zomdev.gh.utils.GameState;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -24,7 +25,6 @@ public class Main extends JavaPlugin {
 
     //TODO Systeme de quinques
     //TODO Systeme de victoire pour les joueurs
-    //TODO Les Kits
     //TODO Les Details(Sons,Particules...)
 
 
@@ -71,6 +71,8 @@ public class Main extends JavaPlugin {
 
         // On définit le status de jeu sur LOBBY
         GameState.setState(GameState.LOBBY);
+
+        GhoulKit.registerItems();
 
         // On Enregistre les Evènements
         registerEvents();
